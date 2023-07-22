@@ -1,4 +1,3 @@
-import { useState } from "react";
 import "./App.css";
 import questionList from "./data/question.json";
 
@@ -9,11 +8,6 @@ import questionList from "./data/question.json";
  */
 
 function App() {
-  // const [randomQuiz, setRandomQuiz] = useState(
-  //   questionList[Math.floor(Math.random() * questionList.length)],
-  // );
-  // setRandomQuiz(questionList[Math.floor(Math.random() * questionList.length)]);
-
   const getRandomQuestions = () => {
     const shuffledQuestions = questionList.sort(() => 0.5 - Math.random());
     console.log(shuffledQuestions);
@@ -27,13 +21,26 @@ function App() {
 
   const randomQuizList = getRandomQuestions();
 
+  const onClickResetButton = () => {
+    window.location.reload();
+  };
+
   return (
     <div className="App bg-gray-200">
-      <header className="App-header h-24"></header>
+      <header className="App-header h-32 pt-4 pl-4 font-bold text-lg tracking-wider">
+        <h1>高山か屋敷か</h1>
+      </header>
       <main className="w-3/4 mx-auto pb-40">
-        <p className="text-3xl block font-bold mb-12 tracking-wider">
-          10個の写真を見て、どちらかを当ててください。
-        </p>
+        <div className="flex justify-center">
+          <p className="text-3xl inline-block font-bold mb-20 tracking-wider leading-loose text-center relative z-10">
+            野球選手の高山俊か ニューヨークの屋敷か
+            <br />
+            どちらなのかを当ててください。
+            <span className="absolute -z-10 text-9xl -left-14 -top-8 text-gray-300">
+              Q
+            </span>
+          </p>
+        </div>
 
         <ul className="flex justify-between flex-wrap">
           {randomQuizList.map((item) => {
@@ -59,8 +66,14 @@ function App() {
             );
           })}
         </ul>
-        <button className="resultButton w-72 h-16 rounded-md text-white text-xl font-bold block mx-auto duration-300 mt-12">
+        <button className="resultButton w-72 h-16 rounded-md text-white text-xl font-bold block mx-auto duration-300 mt-12 mb-8">
           結果を見る
+        </button>
+        <button
+          className="w-72 h-16 rounded-md bg-gray-300 text-xl font-bold block mx-auto duration-300"
+          onClick={onClickResetButton}
+        >
+          リセットする
         </button>
       </main>
     </div>
