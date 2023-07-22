@@ -3,9 +3,19 @@
 @tailwind utilities;
 
 .App {
+  //background-color: #fff06e;
 }
 .App-header {
 }
 
 .App-link {
+}
+.resultButton {
+  background-color: #3ea8ff;
+}
+.resultButton:hover {
+  background-color: #0f83fd;
+}
+.button01 {
+  background-color: #f7ea2a;
 }
