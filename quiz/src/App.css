@@ -5,10 +5,9 @@
 .App {
   //background-color: #fff06e;
 }
-.App-header {
-}
-
-.App-link {
+.header-bg {
+  background-color: #f7ea2a;
+  clip-path: polygon(85% 0, 0 0, 0 60%);
 }
 .resultButton {
   background-color: #3ea8ff;

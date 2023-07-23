@@ -21,14 +21,21 @@ function App() {
 
   const randomQuizList = getRandomQuestions();
 
+  const onClickResultButton = () => {
+    // hoge
+  };
+
   const onClickResetButton = () => {
     window.location.reload();
   };
 
   return (
     <div className="App bg-gray-200">
-      <header className="App-header h-32 pt-4 pl-4 font-bold text-lg tracking-wider">
-        <h1>高山か屋敷か</h1>
+      <header className="h-32">
+        <div className="header-bg asbolute -z-10 w-52 h-40"></div>
+        <h1 className="absolute left-4 top-4 font-bold text-xl tracking-wider">
+          高山か屋敷か
+        </h1>
       </header>
       <main className="w-3/4 mx-auto pb-40">
         <div className="flex justify-center">
@@ -36,7 +43,7 @@ function App() {
             野球選手の高山俊か ニューヨークの屋敷か
             <br />
             どちらなのかを当ててください。
-            <span className="absolute -z-10 text-9xl -left-14 -top-8 text-gray-300">
+            <span className="absolute -z-10 text-9xl -left-16 -top-8 text-gray-300 scale-125">
               Q
             </span>
           </p>
@@ -66,7 +73,10 @@ function App() {
             );
           })}
         </ul>
-        <button className="resultButton w-72 h-16 rounded-md text-white text-xl font-bold block mx-auto duration-300 mt-12 mb-8">
+        <button
+          className="resultButton w-72 h-16 rounded-md text-white text-xl font-bold block mx-auto duration-300 mt-12 mb-8"
+          onClick={onClickResultButton}
+        >
           結果を見る
         </button>
         <button
@@ -75,6 +85,9 @@ function App() {
         >
           リセットする
         </button>
+        <p>
+          <span>正解の数</span>/<span>10</span>
+        </p>
       </main>
     </div>
   );
