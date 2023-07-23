@@ -1,10 +1,11 @@
+import { useState } from "react";
 import "./App.css";
 import questionList from "./data/question.json";
 
 /**
  * ・questionListからランダムに問題を10個取得する
  * ・高山か屋敷のボタンをクリックする
- * ・結果を見るボタンを押し、何問正解したか表示する
+ * ・結果を見るボタン→高山と屋敷どちらをクリックしたか保存する。何問正解したか表示する
  */
 
 function App() {
@@ -19,14 +20,44 @@ function App() {
    * 無名関数：0.5からMath.random()（0以上1未満のランダムな小数）を引いた値（-0.5から0.5の間のランダムな値）を返す
    */
 
+  const mainColor = "#f7ea2a";
+
   const randomQuizList = getRandomQuestions();
+  const [results, setResults] = useState<string[]>([]); // 初期値：空の配列
 
   const onClickResultButton = () => {
-    // hoge
+    // resultsに結果を格納する
+    const selectedOptions = randomQuizList.map((item) => {
+      return "高山";
+    });
+    // console.log(selectedOptions); 10個の配列、全て中身は高山
+    setResults(selectedOptions);
+  };
+
+  const onClickOptionButton = (id: number, selectedOption: string) => {
+    console.log(`クイズID: ${id}, 選択オプション: ${selectedOption}`);
   };
 
   const onClickResetButton = () => {
     window.location.reload();
+  };
+
+  const calculateScore = () => {
+    let score = 0;
+    // results.map((selectedOption, index) => {
+    //   if (selectedOption === randomQuizList[index].answer) {
+    //     score++;
+    //   }
+    // });
+    // Array.prototype.map() expects a return value from arrow function.eslintarray-callback-returnのエラーが出る
+    // アロー関数内で結果を返す必要がある。
+    console.log(results); // 10個の配列、全て中身は高山
+    results.forEach((selectedOption, index) => {
+      if (selectedOption === randomQuizList[index].answer) {
+        score++;
+      }
+    });
+    return score;
   };
 
   return (
@@ -62,10 +93,17 @@ function App() {
                   className="w-40 h-40 object-cover mb-8"
                 />
                 <div className="flex w-full justify-between flex-wrap">
-                  <button className="w-40 h-12 rounded-3xl font-bold tracking-wider button01 mr-2 mb-2">
+                  {/* onClickイベントハンドラー どちらのボタンがクリックされたかを判定 */}
+                  <button
+                    className="w-40 h-12 rounded-3xl font-bold tracking-wider button01 mr-2 mb-2 bg-gray-200"
+                    onClick={() => onClickOptionButton(item.id, "高山")}
+                  >
                     高山
                   </button>
-                  <button className="w-40 h-12 rounded-3xl font-bold tracking-wider bg-gray-200">
+                  <button
+                    className="w-40 h-12 rounded-3xl font-bold tracking-wider bg-gray-200"
+                    onClick={() => onClickOptionButton(item.id, "屋敷")}
+                  >
                     屋敷
                   </button>
                 </div>
@@ -86,7 +124,7 @@ function App() {
           リセットする
         </button>
         <p>
-          <span>正解の数</span>/<span>10</span>
+          <span>{calculateScore()}</span>/<span>10</span>
         </p>
       </main>
     </div>
