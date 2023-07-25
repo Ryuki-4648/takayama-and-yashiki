@@ -10,7 +10,7 @@ import questionList from "./data/question.json";
 
 function App() {
   const getRandomQuestions = () => {
-    const shuffledQuestions = questionList.sort(() => 0.5 - Math.random());
+    const shuffledQuestions = [...questionList].sort(() => 0.5 - Math.random());
     console.log(shuffledQuestions);
     return shuffledQuestions.slice(0, 10);
   };
@@ -23,7 +23,8 @@ function App() {
   const mainColor = "#f7ea2a";
 
   // const randomQuizList = getRandomQuestions();
-  const [randomQuizList, setRandomQuizList] = useState(getRandomQuestions());
+  const [randomQuizList, setRandomQuizList] = useState<any[]>([]);
+
   // 初回レンダリング時に実行する
   useEffect(() => {
     setRandomQuizList(getRandomQuestions());
@@ -70,11 +71,6 @@ function App() {
   const onClickButtonToggle = () => {
     setButtonActive(!buttonActive);
   };
-  /**
-   * onClickButtonToggle関数がクリックされるたびにgetRandomQuestions関数が再度呼び出され、毎回クイズがシャッフルされる
-   * → buttonActiveの値を反転させているだけ。
-   * クリックするとコンポーネントの再レンダリングが起こり、randomQuizListも再度初期化されて新しいクイズリストが生成される
-   */
 
   return (
     <div className="App bg-gray-200">
@@ -109,7 +105,6 @@ function App() {
                   className="w-40 h-40 object-cover mb-8"
                 />
                 <div className="flex w-full justify-between flex-wrap">
-                  {/* onClickイベントハンドラー どちらのボタンがクリックされたかを判定 */}
                   <button
                     className={`w-40 h-12 rounded-3xl font-bold tracking-wider button01 mr-2 mb-2 bg-gray-200 ${
                       buttonActive ? "" : "is-click"
