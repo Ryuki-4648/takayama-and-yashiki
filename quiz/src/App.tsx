@@ -35,7 +35,7 @@ function App() {
   };
 
   const onClickOptionButton = (id: number, selectedOption: string) => {
-    console.log(`クイズID: ${id}, 選択オプション: ${selectedOption}`);
+    // console.log(`クイズID: ${id}, 選択オプション: ${selectedOption}`);
   };
 
   const onClickResetButton = () => {
@@ -51,13 +51,19 @@ function App() {
     // });
     // Array.prototype.map() expects a return value from arrow function.eslintarray-callback-returnのエラーが出る
     // アロー関数内で結果を返す必要がある。
-    console.log(results); // 10個の配列、全て中身は高山
+    // console.log(results); // 10個の配列、全て中身は高山
     results.forEach((selectedOption, index) => {
       if (selectedOption === randomQuizList[index].answer) {
         score++;
       }
     });
     return score;
+  };
+
+  const [buttonActive, setButtonActive] = useState(false);
+  const onClickButtonToggle = () => {
+    console.log("aaa");
+    setButtonActive(!buttonActive);
   };
 
   return (
@@ -95,14 +101,22 @@ function App() {
                 <div className="flex w-full justify-between flex-wrap">
                   {/* onClickイベントハンドラー どちらのボタンがクリックされたかを判定 */}
                   <button
-                    className="w-40 h-12 rounded-3xl font-bold tracking-wider button01 mr-2 mb-2 bg-gray-200"
-                    onClick={() => onClickOptionButton(item.id, "高山")}
+                    className={`w-40 h-12 rounded-3xl font-bold tracking-wider button01 mr-2 mb-2 bg-gray-200 ${
+                      buttonActive ? "" : "is-click"
+                    }`}
+                    onClick={() => {
+                      onClickOptionButton(item.id, "高山");
+                      onClickButtonToggle();
+                    }}
                   >
                     高山
                   </button>
                   <button
                     className="w-40 h-12 rounded-3xl font-bold tracking-wider bg-gray-200"
-                    onClick={() => onClickOptionButton(item.id, "屋敷")}
+                    onClick={() => {
+                      onClickOptionButton(item.id, "屋敷");
+                      onClickButtonToggle();
+                    }}
                   >
                     屋敷
                   </button>
