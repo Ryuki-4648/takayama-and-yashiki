@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import questionList from "./data/question.json";
 
@@ -22,7 +22,13 @@ function App() {
 
   const mainColor = "#f7ea2a";
 
-  const randomQuizList = getRandomQuestions();
+  // const randomQuizList = getRandomQuestions();
+  const [randomQuizList, setRandomQuizList] = useState(getRandomQuestions());
+  // 初回レンダリング時に実行する
+  useEffect(() => {
+    setRandomQuizList(getRandomQuestions());
+  }, []);
+
   const [results, setResults] = useState<string[]>([]); // 初期値：空の配列
 
   const onClickResultButton = () => {
@@ -39,7 +45,7 @@ function App() {
   };
 
   const onClickResetButton = () => {
-    window.location.reload();
+    setRandomQuizList(getRandomQuestions());
   };
 
   const calculateScore = () => {
@@ -62,9 +68,13 @@ function App() {
 
   const [buttonActive, setButtonActive] = useState(false);
   const onClickButtonToggle = () => {
-    console.log("aaa");
     setButtonActive(!buttonActive);
   };
+  /**
+   * onClickButtonToggle関数がクリックされるたびにgetRandomQuestions関数が再度呼び出され、毎回クイズがシャッフルされる
+   * → buttonActiveの値を反転させているだけ。
+   * クリックするとコンポーネントの再レンダリングが起こり、randomQuizListも再度初期化されて新しいクイズリストが生成される
+   */
 
   return (
     <div className="App bg-gray-200">
