@@ -65,9 +65,15 @@ function App() {
     return score;
   };
 
-  const [buttonActive, setButtonActive] = useState(false);
-  const onClickButtonToggle = () => {
-    setButtonActive(!buttonActive);
+  const [buttonActive, setButtonActive] = useState<boolean[]>(
+    new Array(randomQuizList.length).fill(false),
+  );
+  const onClickButtonToggle = (index: number) => {
+    setButtonActive((prev) => {
+      const updatedButtonActive = [...prev];
+      updatedButtonActive[index] = !updatedButtonActive[index];
+      return updatedButtonActive;
+    });
   };
 
   return (
@@ -91,7 +97,7 @@ function App() {
         </div>
 
         <ul className="flex justify-between flex-wrap">
-          {randomQuizList.map((item) => {
+          {randomQuizList.map((item, index) => {
             return (
               <li
                 className="flex justify-center flex-wrap w-full md:w-5/12 mb-16 bg-white rounded-2xl shadow-lg p-8"
@@ -109,7 +115,7 @@ function App() {
                     }`}
                     onClick={() => {
                       onClickOptionButton(item.id, "高山");
-                      onClickButtonToggle();
+                      onClickButtonToggle(index);
                     }}
                   >
                     高山
@@ -120,7 +126,7 @@ function App() {
                     }`}
                     onClick={() => {
                       onClickOptionButton(item.id, "屋敷");
-                      onClickButtonToggle();
+                      onClickButtonToggle(index);
                     }}
                   >
                     屋敷
