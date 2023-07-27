@@ -20,8 +20,6 @@ function App() {
    * 無名関数：0.5からMath.random()（0以上1未満のランダムな小数）を引いた値（-0.5から0.5の間のランダムな値）を返す
    */
 
-  const mainColor = "#f7ea2a";
-
   // const randomQuizList = getRandomQuestions();
   const [randomQuizList, setRandomQuizList] = useState<any[]>([]);
 
@@ -75,7 +73,7 @@ function App() {
   return (
     <div className="App bg-gray-200">
       <header className="h-32">
-        <div className="header-bg asbolute -z-10 w-52 h-40"></div>
+        <div className="header-bg asbolute -z-10 w-52 h-40 bg-color01"></div>
         <h1 className="absolute left-4 top-4 font-bold text-xl tracking-wider">
           高山か屋敷か
         </h1>
@@ -106,7 +104,7 @@ function App() {
                 />
                 <div className="flex w-full justify-between flex-wrap">
                   <button
-                    className={`w-40 h-12 rounded-3xl font-bold tracking-wider button01 mr-2 mb-2 bg-gray-200 ${
+                    className={`w-40 h-12 rounded-3xl font-bold tracking-wider button01 mr-2 mb-2 hover:bg-color01 bg-gray-200 ${
                       buttonActive ? "" : "is-click"
                     }`}
                     onClick={() => {
@@ -117,7 +115,9 @@ function App() {
                     高山
                   </button>
                   <button
-                    className="w-40 h-12 rounded-3xl font-bold tracking-wider bg-gray-200"
+                    className={`w-40 h-12 rounded-3xl font-bold tracking-wider hover:bg-color01 bg-gray-200 ${
+                      buttonActive ? "" : "is-click"
+                    }`}
                     onClick={() => {
                       onClickOptionButton(item.id, "屋敷");
                       onClickButtonToggle();
@@ -131,13 +131,13 @@ function App() {
           })}
         </ul>
         <button
-          className="resultButton w-72 h-16 rounded-md text-white text-xl font-bold block mx-auto duration-300 mt-12 mb-8"
+          className="w-72 h-16 rounded-md text-white text-xl font-bold block mx-auto duration-300 mt-12 mb-8 bg-color02 hover:bg-color03"
           onClick={onClickResultButton}
         >
           結果を見る
         </button>
         <button
-          className="w-72 h-16 rounded-md bg-gray-300 text-xl font-bold block mx-auto duration-300"
+          className="w-72 h-16 rounded-md bg-gray-300 text-xl font-bold block mx-auto duration-300 hover:bg-color01"
           onClick={onClickResetButton}
         >
           リセットする
