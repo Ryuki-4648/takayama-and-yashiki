@@ -66,8 +66,9 @@ function App() {
   };
 
   const [buttonActive, setButtonActive] = useState<boolean[]>(
-    new Array(randomQuizList.length).fill(false),
+    Array.from({ length: randomQuizList.length }, () => false),
   );
+
   const onClickButtonToggle = (index: number) => {
     setButtonActive((prev) => {
       const updatedButtonActive = [...prev];
@@ -110,8 +111,10 @@ function App() {
                 />
                 <div className="flex w-full justify-between flex-wrap">
                   <button
-                    className={`w-40 h-12 rounded-3xl font-bold tracking-wider button01 mr-2 mb-2 hover:bg-color01 bg-gray-200 ${
-                      buttonActive ? "" : "is-click"
+                    className={`w-40 h-12 rounded-3xl font-bold tracking-wider button01 mr-2 mb-2 hover:bg-color01 ${
+                      buttonActive[index]
+                        ? "is-click bg-color01"
+                        : "bg-gray-200"
                     }`}
                     onClick={() => {
                       onClickOptionButton(item.id, "高山");
@@ -121,8 +124,10 @@ function App() {
                     高山
                   </button>
                   <button
-                    className={`w-40 h-12 rounded-3xl font-bold tracking-wider hover:bg-color01 bg-gray-200 ${
-                      buttonActive ? "" : "is-click"
+                    className={`w-40 h-12 rounded-3xl font-bold tracking-wider hover:bg-color01 ${
+                      buttonActive[index]
+                        ? "is-click bg-color01"
+                        : "bg-gray-200"
                     }`}
                     onClick={() => {
                       onClickOptionButton(item.id, "屋敷");
