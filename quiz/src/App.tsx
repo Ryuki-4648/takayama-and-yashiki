@@ -9,18 +9,18 @@ import questionList from "./data/question.json";
  */
 
 function App() {
-  const getRandomQuestions = () => {
-    const shuffledQuestions = [...questionList].sort(() => 0.5 - Math.random());
-    console.log(shuffledQuestions);
-    return shuffledQuestions.slice(0, 10);
-  };
   /**
    * questionListをシャッフルし、ランダムに10個のクイズを選択する。
    * sortメソッド：返り値をもとに配列の要素を並び替える。引数にソートのルールを指定できる。
    * 無名関数：0.5からMath.random()（0以上1未満のランダムな小数）を引いた値（-0.5から0.5の間のランダムな値）を返す
    */
 
-  // const randomQuizList = getRandomQuestions();
+  const getRandomQuestions = () => {
+    const shuffledQuestions = [...questionList].sort(() => 0.5 - Math.random());
+    console.log(shuffledQuestions);
+    return shuffledQuestions.slice(0, 10);
+  };
+
   const [randomQuizList, setRandomQuizList] = useState<any[]>([]);
 
   // 初回レンダリング時に実行する
@@ -33,18 +33,19 @@ function App() {
   const onClickResultButton = () => {
     // resultsに結果を格納する
     const selectedOptions = randomQuizList.map((item) => {
-      return "高山";
+      return item;
     });
-    // console.log(selectedOptions); 10個の配列、全て中身は高山
+    //console.log(selectedOptions); //10個の配列
     setResults(selectedOptions);
   };
 
   const onClickOptionButton = (id: number, selectedOption: string) => {
-    // console.log(`クイズID: ${id}, 選択オプション: ${selectedOption}`);
+    console.log(`クイズID: ${id}, 選択オプション: ${selectedOption}`);
   };
 
   const onClickResetButton = () => {
     setRandomQuizList(getRandomQuestions());
+    setButtonActive(Array.from({ length: randomQuizList.length }, () => false));
   };
 
   const calculateScore = () => {
